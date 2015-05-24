@@ -1,0 +1,218 @@
+<html>
+	<head>
+		<title>EVENTOS MADRID</title> 
+		<style type="text/css">
+			#copyright {
+				color:{{colour}};
+				width: 100%; 
+				float: left;
+				margin:0px 0px 0px 0px;
+				text-align:justify;
+			}
+			#banner{
+				padding:4px 4px;
+				border:{{colour}} 5px solid;
+				border-radius:20px;
+			}
+			#menu {
+				width:500px;
+				font-family:Arial, Helvetica, sans-serif;
+			}
+			#identify {
+				float: right;
+				width:500px;
+				font-family:Arial, Helvetica, sans-serif;
+			}
+			#options {
+				position:absolute;
+				top:2%;
+				right:60%;
+			}
+			#rss {
+				float: right;
+				width:500px;
+				font-family:Arial, Helvetica, sans-serif;
+			}
+			#events, #hours{
+				color: {{letterColour}};
+				font-size: {{size}};
+			}
+			ul, ol {
+				list-style:none;
+			}
+			
+			.nav > li {
+				float:left;
+			}
+			
+			.nav li a {
+				background-color:{{colour}};
+				color:#fff;
+				text-decoration:none;
+				padding:10px 12px;
+				border-radius: 8px;
+				box-shadow: 2px 2px 8px rgba(0,0,0,0.3);   
+				display:block;
+			}
+			
+			.nav li a:hover {
+				background-color:#434343;
+			}
+			
+			.nav li ul {
+				display:none;
+				position:absolute;
+				min-width:140px;
+			}
+			
+			.nav li:hover > ul {
+				display:block;
+			}
+			
+			.nav li ul li {
+				position:relative;
+			}
+			
+			.nav li ul li ul {
+				right:-140px;
+				top:0px;
+			}
+			.link a:hover {
+				background-color:{{colour}};
+			}
+		</style>
+	</head>
+	
+	<body>		
+		<div id="options">
+			<div id="identify">
+				{% if isAuthenticated %}
+						<ul class="nav">
+							<li><a href="http://localhost:1234/logout">LOGOUT</a></li>
+							<li><a href="http://localhost:1234/{{username}}">Hola {{username}}!</a><br></li>
+						</ul>
+				{% else %}
+					<ul class="nav">
+						<li><a href="http://localhost:1234/login">Login</a><br></li>
+					</ul>
+				{% endif%}
+			</div>
+
+			<div id="menu">
+				<ul class="nav">
+					<li><a href="">MENU</a>
+						<ul>
+							<li><a href="http://localhost:1234/todas">Todas</a></li>
+							<li><a href="http://localhost:1234/ayuda">Ayuda</a></li>
+							<li><a href="http://localhost:1234/">Inicio</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			{% if foundEvents %}
+			<div id="rss">
+				<ul class="nav">
+					<li><br><a type="application/rss+xml" href="http://localhost:1234/{{user.name}}/rss">Canal RSS</a></li>
+				</ul>
+			</div>
+			{% endif %}
+		</div>	
+		
+		<div id="banner">
+			<center>
+				<img src="http://localhost:1234/static/img/FlamingoBanner.png"> </img>
+			</center>
+		</div>
+		<div style="text-align:center;margin:0 auto;width:100%;">
+		<div id="events" style="width: 40%; float: left;margin:0px 15px 0px 15px;text-align:justify;">
+			<p><h1>EVENTOS</h1></p>
+			{% if foundEvents %}
+				{% for line in events %}
+					<p><h3>{{line.title}}</h3></p>
+					<p><h5>{{line.date}}</h5></p>
+					<span class="link">
+						<p><a href="http://localhost:1234/actividades/{{line.id}}" style="text-decoration:none; color:black"><h5>Mas informacion</h5></a></p>	
+					</span>
+				{% endfor %}
+			{% else %}
+				<p><h5>Aun no hay ningún evento añadido a la pagina</h1></5>
+			{% endif %}
+			
+		</div>
+		<div id="hours" style="width: 20%; float: left;margin:0px 15px 0px 15px;text-align:justify;">
+			<p><br></p>
+			<p><br></p>
+			{% if foundEvents %}
+				{% for line in hours %}
+					<p></p><h3>Elegida en: </h3></p>
+					<p><h4>{{line.date}}</h4></p>
+					<br>	
+				{% endfor %}
+				<br>
+			{% endif %}
+		</div>
+		<div id="infoPag" style="width: 30%; float: left;margin:0px 0px 0px 0px;text-align:justify;">
+			{% if isUser %}
+				<p><br></p>
+				<form action="changeInfo" method="POST">
+					<p><h1>{{user.title}}</h1></p>
+					<input type="text" name="title">
+					<input type="submit" value="Cambiar mi Titulo">
+				</form>
+				
+				<form action="changeInfo" method="POST">
+					<p><h5>{{user.description}}</h5></p>
+					<input type="text" name="description">
+					<input type="submit" value="Cambiar mi Descripcion">
+				</form>
+				<p><br></p>
+				<p><h2>CAMBIAR EL ESTILO DE MI PAGINA</h2></p>
+				<div style="width: 30%; float: left;margin:0px 0px 0px 0px;text-align:justify;">
+					<p><h5>Color</h5></p>
+					<form action={{user.name}} method="POST">
+						<input type="hidden" name="colour" value="LimeGreen"></h4>
+						<input type="submit" value="Verde">
+					</form>
+					<form action={{user.name}} method="POST">
+						<input type="hidden" name="colour" value="MediumTurquoise"></h4>
+						<input type="submit" value="Azul">
+					</form>
+				</div>
+				<div style="width: 30%; float: left;margin:0px 0px 0px 0px;text-align:justify;">
+					<p><h5>Color letra</h5></p>
+					<form action={{user.name}} method="POST">
+						<input type="hidden" name="lettercolour" value="LimeGreen"></h4>
+						<input type="submit" value="Verde">
+					</form>
+					<form action={{user.name}} method="POST">
+						<input type="hidden" name="lettercolour" value="MediumTurquoise"></h4>
+						<input type="submit" value="Azul">
+					</form>
+				</div>
+				<div style="width: 30%; float: left;margin:0px 0px 0px 0px;text-align:justify;">
+					<p><h5>Tamaño letra</h5></p>
+					<form action={{user.name}} method="POST">
+						<input type="hidden" name="size" value="grande"></h4>
+						<input type="submit" value="Grande">
+					</form>
+					<form action={{user.name}} method="POST">
+						<input type="hidden" name="size" value="pequeno"></h4>
+						<input type="submit" value="Pequeña">
+					</form>
+					<br>
+				</div>
+				<form action={{user.name}} method="POST">
+					<input type="hidden" name="reset"></h4>
+					<input type="submit" value="Restablecer configuracion inicial">
+				</form>
+				
+			{% else %}
+				<p><h1>{{user.title}}</h1></p>
+				<p><h5>Nombre de usuario: {{user.name}}</h5></p>
+				<p><h5>{{user.description}}</h5></p>
+			{% endif %}
+			
+		</div>
+		<br><br><div id="copyright" class="bottom"><h6>&#169; 2015 Laura</h6></div>
+	</body>
+</html>

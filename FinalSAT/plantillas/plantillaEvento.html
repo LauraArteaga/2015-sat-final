@@ -1,0 +1,119 @@
+<html>
+	<head>
+		<title>EVENTOS MADRID</title> 
+		<style type="text/css">
+			#menu {
+				width:500px;
+				font-family:Arial, Helvetica, sans-serif;
+			}
+			#identify {
+				float: right;
+				width:500px;
+				font-family:Arial, Helvetica, sans-serif;
+			}
+			#banner{
+				position: center;
+				border:white 5px solid;
+				border-radius:20px;
+			}
+			#options {
+				position:absolute;
+				top:2%;
+				right:60%;
+			}
+			#copyright {
+				color:#FF0080;
+			}
+			ul, ol {
+				list-style:none;
+			}
+			
+			.nav > li {
+				float:left;
+			}
+			
+			.nav li a {
+				background-color:#FF0080;
+				color:#fff;
+				text-decoration:none;
+				padding:10px 12px;
+				border-radius: 8px;
+				box-shadow: 2px 2px 8px rgba(0,0,0,0.3);   
+				display:block;
+			}
+			
+			.nav li a:hover {
+				background-color:#434343;
+			}
+			
+			.nav li ul {
+				display:none;
+				position:absolute;
+				min-width:140px;
+			}
+			
+			.nav li:hover > ul {
+				display:block;
+			}
+			
+			.nav li ul li {
+				position:relative;
+			}
+			
+			.nav li ul li ul {
+				right:-140px;
+				top:0px;
+			}
+			.link a:hover {
+				background-color:Silver;
+			}
+		</style>
+	</head>
+	
+	<body vlink="black">
+		<div id="options">
+			<div id="identify">
+				{% if isAuthenticated %}
+						<ul class="nav">
+							<li><a href="http://localhost:1234/logout">LOGOUT</a></li>
+							<li><a href="http://localhost:1234/{{username}}">Hola {{username}}!</a><br></li>
+						</ul>
+				{% else %}
+					<ul class="nav">
+						<li><a href="http://localhost:1234/login">Login</a><br></li>
+					</ul>
+				{% endif%}
+			</div>
+
+			<div id="menu">
+				<ul class="nav">
+					<li><a href="">MENU</a>
+						<ul>
+							<li><a href="http://localhost:1234/todas">Todas</a></li>
+							<li><a href="http://localhost:1234/ayuda">Ayuda</a></li>
+							<li><a href="http://localhost:1234/">Inicio</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>	
+		<div id="banner">
+			<center>
+				<img src="http://localhost:1234/static/img/FlamingoBanner.png"> </img>
+			</center>
+		</div>
+		<marquee><h1 color=#FF00BF >Muevete por Madrid!!</h1></marquee>
+		<p><h2>{{entry.title}}</h2></p>
+		<p><h4>{{entry.date}}</h4></p>
+		<p><h4>Precio: {{entry.price}}</h4></p>
+		<p><h4>Tipo de evento: {{entry.eventType}}</h4></p>
+		<p><h4>Duracion: {{entry.duration}} --> Finaliza {{entry.dateEnd}}</h4></p>
+		<p><h4>A {{entry.likes}} personas les gusta este evento</h4></p>
+		<p><h5>Informacion adicional: {{entry.description}}</h5></p>
+		<span class="link" >
+			<p><a href="{{entry.url}}" style="text-decoration:none; color: black;"><h4>Mas informacion</h4></a></p>	
+		</span>
+		<div id="copyright" class="bottom"><h6>&#169; 2015 Laura</h6></div>
+		
+	</body>
+</html>

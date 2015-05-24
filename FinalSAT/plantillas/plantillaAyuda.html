@@ -1,0 +1,167 @@
+
+<html>
+	<head>
+		<title>AYUDA</title> 
+		<style type="text/css">
+			#menu {
+				width:500px;
+				font-family:Arial, Helvetica, sans-serif;
+			}
+			#identify {
+				float: right;
+				width:500px;
+				font-family:Arial, Helvetica, sans-serif;
+			}
+			#copyright {
+				color:#FF0080;
+				width: 100%; 
+				float: left;
+				margin:0px 0px 0px 0px;
+				text-align:justify;
+			}
+			#banner{
+				width: 100%
+				position: center;
+				padding:4px 4px;
+				border:white 5px solid;
+				border-radius:20px;
+			}
+			#options {
+				position:absolute;
+				top:2%;
+				right:60%;
+			}
+
+			ul, ol {
+				list-style:none;
+			}
+			
+			.nav > li {
+				float:left;
+			}
+			
+			.nav li a {
+				background-color:#FF0080;
+				color:#fff;
+				text-decoration:none;
+				padding:10px 12px;
+				border-radius: 8px;
+				box-shadow: 2px 2px 8px rgba(0,0,0,0.3);   
+				display:block;
+			}
+			
+			.nav li a:hover {
+				background-color:#434343;
+			}
+			
+			.nav li ul {
+				display:none;
+				position:absolute;
+				min-width:140px;
+			}
+			
+			.nav li:hover > ul {
+				display:block;
+			}
+			
+			.nav li ul li {
+				position:relative;
+			}
+			
+			.nav li ul li ul {
+				right:-140px;
+				top:0px;
+			}
+		</style>
+	</head>
+	<body id="body" vlink="black">
+		<div id="options">
+			<div id="identify">
+				{% if isAuthenticated %}
+						<ul class="nav">
+							<li><a href="http://localhost:1234/logout">LOGOUT</a></li>
+							<li><a href="http://localhost:1234/{{username}}">Hola {{username}}!</a><br></li>
+						</ul>
+				{% else %}
+					<ul class="nav">
+						<li><a href="http://localhost:1234/login">Login</a><br></li>
+					</ul>
+				{% endif%}
+			</div>
+
+			<div id="menu">
+				<ul class="nav">
+					<li><a href="">MENU</a>
+						<ul>
+							<li><a href="http://localhost:1234/todas">Todas</a></li>
+							<li><a href="http://localhost:1234/">Inicio</a></li>
+							{% if foundEvents %}
+								<li><a href="http://localhost:1234/{{user.name}}/rss">Canal RSS</a></li>
+							{% endif %}
+						</ul>
+					</li>
+				</ul>
+			</div>		
+		</div>	
+		
+		<div id="banner">
+			<center>
+				<img src="http://localhost:1234/static/img/FlamingoBanner.png"> </img>
+			</center>
+		</div>
+		
+			<div style="margin:0px 15px 0px 15px;text-align:center;">
+				<center>
+					<p><h5>
+						<br><br>
+						En esta pagina podras consultar eventos de ocio y cultura de la Comunidad de Madrid,
+						podras crear tu propia pagina para guardar tus eventos favoritos, 
+						valorar un evento si te ha gustado,ver las paginas de otros usuarios,
+						buscar eventos gratuitos, proximos en el tiempo, los mas populares...
+						Tambien te ofrecemos una informacion detallada de cada evento en su propia pagina,
+						que a su vez tiene un enlace con mas informacion si estas interesado.
+						<br><br>
+					</h5></p>
+					<p><h3>Menu</h3></p>
+					<p><h5>
+						En el menu podras acceder a <strong>Todas</strong> donde podras consultar todos los eventos 
+						disponibles actualmente y hacer una busqueda segun lo que mas te interese, 
+						a <strong>Inicio</strong>, donde podras ver los diez eventos mas proximos
+						en el tiempo y consultar las paginas personales de otros usuarios.
+					</h5></p>
+					<p><h3>Identificacion</h3></p>
+					<p><h5>
+						Pinchando el boton <strong>Login</strong> podras loguearte en el caso de que estes registrado en nuestra pagina,
+						una vez te hayas registrado tendras un boton <strong>Logout</strong> para cerrar tu sesion, tambien tendras un boton
+						de bienvenida con tu nombre de usuario, si pinchas en el podras acceder a tu pagina personal.
+					</h5></p>
+					<p><h3>Eventos</h3></p>
+					<p><h5>
+						Podras acceder a toda la informacion de un evento pinchando su <strong>Titulo</strong> en cualquier
+						lugar de la pagina. Debajo de cada uno tendras un boton para darle a me gusta si te ha gustado el evento
+						o añadirlo a tu pagina personal (en el caso de que estes registrado).
+					</h5></p>
+					<p><h3>Pagina personal</h3></p>
+					<p><h5>
+						Si estas registrado podras acceder a tu pagina personal con tu seleccion de eventos añadidos,
+						 en ella podras cambiar su aspecto, el titulo y la descripcion.
+					</h5></p>
+					<p><h3>Pagina de otro usuario</h3></p>
+					<p><h5>
+						Pinchando el titulo de la pagina de otro usuario accederas a ella, podras ver los eventos que ha guardado y la fecha que lo hizo,
+						tambien podras acceder a su canal RSS pinchando en el boton <strong>Canal RSS</strong>.
+					</h5></p>
+					<p><h3>Todas</h3></p>
+					<p><h5>
+						En <strong>Todas</strong> podras consultar todos los eventos disponibles, hacer busqueda segun tu interes 
+						y si estas registrado podras actualizar la informacion de los eventos, ver cuantos hay disponibles y la 
+						hora de la ultima actualizacion.
+					</h5></p>
+					
+				</center>
+			</div>
+		
+		<div id="copyright" class="bottom"><h6>&#169; 2015 Laura</h6></div>
+	</body>
+</html>
+			

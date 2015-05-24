@@ -1,0 +1,190 @@
+<html>
+	<head>
+		<title>EVENTOS MADRID</title> 
+		<style type="text/css">
+			#menu {
+				width:500px;
+				font-family:Arial, Helvetica, sans-serif;
+			}
+			#identify {
+				float: right;
+				width:500px;
+				font-family:Arial, Helvetica, sans-serif;
+			}
+			#copyright {
+				color:#FF0080;
+			}
+			#banner{
+				padding:4px 4px;
+				border:white 5px solid;
+				border-radius:20px;
+			}
+			#options {
+				position:absolute;
+				top:2%;
+				right:60%;
+			}
+			#likes {
+				width:80px;
+				heigth:80px;
+			}
+			#add{
+				display: block;
+				width: 100px;  
+				height: 20px;
+				text-align: center;
+				color: #FFF;
+				background: #FF0080;   
+				font: bold 16px/16px Arial;
+				text-decoration: none;
+				border-radius: 5px;
+				box-shadow: 2px 2px 8px rgba(0,0,0,0.3);   
+			}
+			#events {
+				font-family: fantasy;
+			}
+			#usersPage {
+				font-family: fantasy;
+			}
+			.table {
+				border-width: 4px;
+				border-style: solid;
+				border-color: #434343;
+				border-radius: 5px;
+				background-color: #FFBEE2;
+			}
+			ul, ol {
+				list-style:none;
+			}
+			
+			.nav > li {
+				float:left;
+			}
+			
+			.nav li a {
+				background-color:#FF0080;
+				color:#fff;
+				text-decoration:none;
+				border-radius: 8px;
+				box-shadow: 2px 2px 8px rgba(0,0,0,0.3);   
+				padding:10px 12px;
+				display:block;
+			}
+			
+			.nav li a:hover {
+				background-color:#434343;
+			}
+			
+			.nav li ul {
+				display:none;
+				position:absolute;
+				min-width:140px;
+			}
+			
+			.nav li:hover > ul {
+				display:block;
+			}
+			
+			.nav li ul li {
+				position:relative;
+			}
+			
+			.nav li ul li ul {
+				right:-140px;
+				top:0px;
+			}
+			
+			.table td a {
+				background-color:#FF0080;
+				color:#fff;
+				text-decoration:none;
+				padding:10px 12px;
+				border-radius: 8px;
+				box-shadow: 2px 2px 8px rgba(0,0,0,0.3);   
+				display:block;
+			}
+			
+			.table td a:hover {
+				background-color:#434343;
+			}
+			.link a:hover {
+				background-color:Silver;
+			}
+		</style>
+	</head>
+	
+	<body BGCOLOR="white">	
+		<div id="options">
+			<div id="identify">
+				{% if isAuthenticated %}
+						<ul class="nav">
+							<li><a href="http://localhost:1234/logout">LOGOUT</a></li>
+							<li><a href="http://localhost:1234/{{username}}">Hola {{username}}!</a><br></li>
+						</ul>
+				{% else %}
+					<ul class="nav">
+						<li><a href="http://localhost:1234/login">Login</a><br></li>
+					</ul>
+				{% endif%}
+			</div>
+
+			<div id="menu">
+				<ul class="nav">
+					<li><a href="">MENU</a>
+						<ul>
+							<li><a href="http://localhost:1234/todas">Todas</a></li>
+							<li><a href="http://localhost:1234/ayuda">Ayuda</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			
+		</div>	
+		<div id="banner">
+			<center>
+				<img src="http://localhost:1234/static/img/FlamingoBanner.png"> </img>
+			</center>
+		</div>
+
+		<marquee><h1>Muevete por Madrid!!</h1></marquee>
+		
+		<div style="text-align:center;margin:0 auto;width:100%;">
+		<div id="events" style="width: 60%; float: left;margin:0px 15px 0px 15px;text-align:justify;">
+			<p><h2>EVENTOS MAS PROXIMOS</h2></p>
+			{% for line in events %}
+				<span class="link">
+					<p><a href="http://localhost:1234/actividades/{{line.id}}"style="text-decoration:none; color:black"><h4>{{line.title}}</h4></a>
+					<h5>{{line.likes}} likes</h5>
+				</span>
+				<a href="http://localhost:1234/like/{{line.id}}" style="text-decoration:none;">
+					<img id="likes" src="http://th07.deviantart.net/fs71/200H/f/2013/078/8/b/logotipo_me_gusta_rosa_by_tatiana931220-d5yk9q1.png"/>
+				</a>
+				
+				{% if isAuthenticated %}
+					<a id="add" href="http://localhost:1234/add/{{line.id}}">Añadir</a>
+				{% endif%}
+				</p>
+			{% endfor %}
+			<div id="copyright"><h6>&#169; 2015 Laura</h6></div>
+		</div>
+		
+		<div id="usersPage" style="width: 30%; float: left;margin:0px 0px 0px 0px;text-align:justify;">
+			{% if foundUsers %}
+			<center><p><h2>PAGINAS DE USUARIOS</h2></p></center>
+				<center>
+					<table class="table" border="5">
+						{% for user in users %}
+							<tr><td>
+								<center>
+									<a href="http://localhost:1234/{{user.name}}" style="text-decoration:none"><p><h3>{{user.title}}</h3></p></a>
+									<p><h5>Usuario: {{user.name}}</h5></p>
+									<p><h5>{{user.description}}</h5></p>
+								</center>
+							</td></tr>
+						{% endfor %}
+					</table>
+				</center>
+			{% endif %}
+		</div>
+	</body>
+</html>
